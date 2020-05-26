@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>LibreriaSistem &mdash; </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+
+    <header role="banner">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 social">
+                        <a href="#"><span class="fa fa-twitter"></span></a>
+                        <a href="#"><span class="fa fa-facebook"></span></a>
+                        <a href="#"><span class="fa fa-instagram"></span></a>
+                        <a href="#"><span class="fa fa-youtube-play"></span></a>
+                        <a href="#"><span class="fa fa-vimeo"></span></a>
+                        <a href="#"><span class="fa fa-snapchat"></span></a>
+                    </div>
+                    <div class="col-3 search-top">
+                        <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+                        <form action="#" class="search-top-form">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" id="s" placeholder="Type keyword to search...">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container logo-wrap">
+            <div class="row pt-5">
+                <div class="col-12 text-center">
+                    <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button"
+                        aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+                    <h1 class="site-logo"><a href="index.html">SISTEMA DE GESTION LIBRERIA</a></h1>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-md  navbar-light bg-light">
+            <div class="container">
+
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="libro.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cargar nuevos
+                                Libro</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                                <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+
+                                <form style="width: 470px; height: 550px ;padding: 50 5px;margin: auto;
+
+                  " action="/libro/agregarLibro" method="POST">
+                                    <br />
+                                    <br />
+                                    <label>ISBN</label>
+                                    <input type="number" name="isbn" min="1111111111111" max="9999999999999"></input>
+                                    <br />
+                                    <label>Titulo del libro</label>
+                                    <input type="text" name="titulo"></input>
+                                    <br />
+                                    <label>Año de edicion</label>
+                                    <input type="text" name="anio"></input>
+                                    <br />
+                                    <label>Ejemplares disponibles</label>
+                                    <input type="number" name="ejemplares"></input>
+                                    <br />
+                                    <label>Autor</label>
+                                    <select class="form-control" name="idAutor">
+                                        <option th:each="autor : ${autores}" th:value="${autor.id}"
+                                            th:text="${autor.nombre}"></option>
+                                    </select>
+                                    <label>Editorial</label>
+                                    <select class="form-control" name="idEditorial">
+                                        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}"
+                                            th:text="${editorial.nombre}"></option>
+                                    </select>
+                                    <br />
+                                    <br />
+                                    <br /><button type="submit" class="btn btn-primary">Guardar Libro</button>
+                                </form>
+
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="libro.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Modificar Libro</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                                <form style="width: 470px; height: 650px ;padding: 50 5px;margin: auto;
+
+  " action="/libro/modificarLibro" method="POST" enctype="multipart/form-data">
+                                    <br />
+                                    <br />
+                                    <label>Seleccione el Libro a modificar</label>
+                                    <select class="form-control" name="idLibro">
+                                        <option selected disabled>...</option>
+                                        <option th:each="libro : ${libros}" th:value="${libro.id}"
+                                            th:text="${libro.titulo}"></option>
+                                    </select>
+                                    <br />
+                                    <p><q>Modifique solamente los datos deseados</q></p>
+                                    <label>ISBN</label>
+                                    <input type="number" name="isbn" max="9999999999999"></input>
+                                    <br />
+                                    <label>Titulo del libro</label>
+                                    <input type="text" name="titulo"></input>
+                                    <br />
+                                    <label>Año de edicion</label>
+                                    <input type="text" name="anio"></input>
+                                    <br />
+                                    <label>Ejemplares disponibles</label>
+                                    <input type="number" name="ejemplares"></input>
+                                    <br />
+                                    <label>Autor</label>
+                                    <select class="form-control" name="idAutor">
+                                        <option th:each="autor : ${autores}" th:value="${autor.id}"
+                                            th:text="${autor.nombre}"></option>
+                                    </select>
+                                    <label>Editorial</label>
+                                    <select class="form-control" name="idEditorial">
+                                        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}"
+                                            th:text="${editorial.nombre}"></option>
+                                    </select>
+                                    <br />
+                                    <br />
+                                    <br /><button type="submit" class="btn btn-primary">Modificar Libro</button>
+                                </form>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="libro.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Agregar Stock
+                                Libros</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                                <form style="width: 470px; height: 250px ;padding: 50 5px;margin: auto;
+" action="/libro/agregarStock" method="POST" enctype="multipart/form-data">
+                                    <label>Seleccione el Libro a modificar</label>
+                                    <select class="form-control" name="idLibro">
+                                        <option th:each="libro : ${libros}" th:value="${libro.id}"
+                                            th:text="${libro.titulo}"></option>
+                                    </select>
+                                    <br />
+                                    <label>Cantidad ejemplares a incorporar</label>
+                                    <input type="number" name="ejemplares"></input>
+                                    <br />
+                                    <br /><button type="submit" class="btn btn-primary">Modificar Ejemplares</button>
+                                </form>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="libro.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Eliminar autor</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+
+                                <form style="width: 450px; height: 200px ;padding: 50 5px;margin: 100 auto;
+
+        " action="/libro/eliminarLibro" method="POST" enctype="multipart/form-data">
+                                    <br />
+                                    <br />
+                                    <label>Titulo del libro</label>
+                                    <select class="form-control" name="idLibro">
+                                        <option th:each="libro : ${libros}" th:value="${libro.id}"
+                                            th:text="${libro.titulo}"></option>
+                                    </select>
+                                    <br /><button type="submit" class="btn btn-primary">Eliminar Libro</button>
+                                </form>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="libro.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ver todos los
+                                autores</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+
+                                <table border="1" align="left" bordercolor="green" cellspacing="0">
+                                    <caption>Lista general de libros</caption>
+
+                                    <thead>
+                                        <tr>
+                                            <th>TITULO DEL LIBRO</th>
+                                            <th>ISBN DEL LIBRO</th>
+                                            <th>AÑO DE EDICION</th>s
+                                            <th>TOTAL DE EJEMPLARES</th>
+                                            <th>TOTAL DE EJEMPLARES PRESTADOS</th>
+                                            <th>ID DEL LIBRO</th>
+                                            <th>AUTOR</th>
+                                            <th>EDITORIAL</th>
+                                            <th></th>
+                                        </tr>
+                                        <thead>
+                                        <tbody>
+                                            <tr th:each="libro: ${libros}">
+                                                <td th:text="${libro.titulo}"></td>
+                                                <td th:text="${libro.isbn}"></td>
+                                                <td th:text="${libro.anio}"></td>
+                                                <td th:text="${libro.ejemplares}"></td>
+                                                <td th:text="${libro.prestados}"></td>
+                                                <td th:text="${libro.id}"></td>
+                                                <td th:text="${libro.autor.nombre}"></td>
+                                                <td th:text="${libro.editorial.nombre}"></td>
+
+                                            </tr>
+                                        </tbody>
+                                </table>
+
+
+
+                            </div>
+
+                </div>
+
+                </li>
+
+                </ul>
+
+            </div>
+            </div> </nav>
+    </header>
+    <!-- END header -->
+    <section class="site-section pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="owl-carousel owl-theme home-slider">
+                        <div>
+                            <a href="libro.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/julio.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="libro.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/sabato.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="libro.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/llosa.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <script src="js/jquery-3.2.1.min.js"></script>
+                    <script src="js/jquery-migrate-3.0.0.js"></script>
+                    <script src="js/popper.min.js"></script>
+                    <script src="js/bootstrap.min.js"></script>
+                    <script src="js/owl.carousel.min.js"></script>
+                    <script src="js/jquery.waypoints.min.js"></script>
+                    <script src="js/jquery.stellar.min.js"></script>
+
+
+                    <script src="js/main.js"></script>
+</body>
+
+</html>

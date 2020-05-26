@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>LibreriaSistem &mdash; </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+
+    <header role="banner">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 social">
+                        <a href="#"><span class="fa fa-twitter"></span></a>
+                        <a href="#"><span class="fa fa-facebook"></span></a>
+                        <a href="#"><span class="fa fa-instagram"></span></a>
+                        <a href="#"><span class="fa fa-youtube-play"></span></a>
+                        <a href="#"><span class="fa fa-vimeo"></span></a>
+                        <a href="#"><span class="fa fa-snapchat"></span></a>
+                    </div>
+                    <div class="col-3 search-top">
+                        <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+                        <form action="#" class="search-top-form">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" id="s" placeholder="Type keyword to search...">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container logo-wrap">
+            <div class="row pt-5">
+                <div class="col-12 text-center">
+                    <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button"
+                        aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+                    <h1 class="site-logo"><a href="index.html">SISTEMA DE GESTION LIBRERIA</a></h1>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-md  navbar-light bg-light">
+            <div class="container">
+
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="prestamo.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cargar nuevos
+                                Prestamo</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                                <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+
+                                <form style="width: 370px; height: 250px ;padding: 50 5px;margin: 100 auto;
+
+                  " action="/prestamo/cargarPrestamo" method="POST">
+                                    <br />
+                                    <br />
+                                    <label>Cliente</label>
+                                    <select class="form-control" name="idCliente">
+                                        <option selected disabled>Selecciona el cliente</option>
+                                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+                                            th:text="${cliente.nombre} + ' ' + ${cliente.apellido}"></option>
+                                    </select>
+                                    <label>Nombre del Libro</label>
+                                    <select class="form-control" name="idLibro">
+                                        <option selected disabled>Selecciona el libro</option>
+                                        <option th:each="libro : ${libros}" th:value="${libro.id}"
+                                            th:text="${libro.titulo} + ' ISBN ' + ${libro.isbn}  "></option>
+                                    </select>
+                                    <br />
+                                    <label>Fecha inicio de Prestamo</label>
+                                    <input type="date" name="fecha"></input>
+                                    <br />
+                                    <label>Fecha Fin Programada de Prestamo</label>
+                                    <input type="date" name="devolucion"></input>
+                                    <br />
+                                    <br />
+                                    <br /><button type="submit" class="btn btn-primary">Guardar Prestamo</button>
+                                </form>
+
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="prestamo.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Finalizar Prestamo</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                                <form style="width: 670px; height: 250px ;padding: 50 5px;margin: 100 auto;
+
+  " action="/prestamo/finalizarPrestamo" method="POST">
+                                    <label>Seleccione el prestamo</label>
+                                    <select class="form-control" name="idPrestamo">
+                                        <option selected disabled>Selecciona el prestamo</option>
+                                        <option th:each="prestamo : ${prestamos}"
+                                            th:if="${prestamo.estadoprestamo.name() == 'ABIERTO'}"
+                                            th:value="${prestamo.id}"
+                                            th:text="'Cliente:'+ ${prestamo.cliente.nombre} + '.Libro:' + ${prestamo.libros.titulo} ">
+                                        </option>
+                                    </select>
+                                    <label>Fecha Real de la Devolución</label>
+                                    <input type="date" name="fechaDevoReal"></input>
+                                    <br /><button type="submit" class="btn btn-primary">Finalizar Prestamo</button>
+                                </form>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="prestamo.html" id="dropdown04"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ver Detalle de
+                                Prestamos Historicos</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+
+                                <table border="1" align="center" bordercolor="green" cellspacing="0">
+                                    <caption>Lista general de prestamos</caption>
+
+                                    <thead>
+                                        <tr>
+                                            <th>ID PRESTAMO</th>
+                                            <th>APELLIDO DEL CLIENTE</th>
+                                            <th>NOMBRE DEL CLIENTE</th>
+                                            <th>NOMBRE LIBRO</th>
+                                            <th>FECHA INICIO</th>
+                                            <th>FECHA DEVOLUCION</th>
+                                            <th>ESTADO DEL PRESTAMO</th>
+                                            <th>MULTA COBRADA</th>
+                                            <th></th>
+                                        </tr>
+                                        <thead>
+                                        <tbody>
+                                            <tr th:each="prestamo1: ${prestamos}">
+                                                <td th:text="${prestamo1.id}"></td>
+                                                <td th:text="${prestamo1.cliente.apellido}"></td>
+                                                <td th:text="${prestamo1.cliente.nombre}"></td>
+                                                <td th:text="${prestamo1.libros.titulo}"></td>
+                                                <td th:text="${prestamo1.fecha}"></td>
+                                                <td th:text="${prestamo1.devolucion}"></td>
+                                                <td th:text="${prestamo1.estadoprestamo}"></td>
+                                                <td th:text="${prestamo1.multa}"></td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+
+                </div>
+
+                </li>
+
+                </ul>
+
+            </div>
+            </div> </nav>
+    </header>
+    <!-- END header -->
+    <section class="site-section pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="owl-carousel owl-theme home-slider">
+                        <div>
+                            <a href="prestamo.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/julio.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="prestamo.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/sabato.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="prestamo.html" class="a-block d-flex align-items-center height-lg"
+                                style="background-image: url('img/llosa.jpg'); ">
+                                <div class="text half-to-full">
+                                    <div class="post-meta">
+
+                                    </div>
+                                    <h3></h3>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <script src="js/jquery-3.2.1.min.js"></script>
+                    <script src="js/jquery-migrate-3.0.0.js"></script>
+                    <script src="js/popper.min.js"></script>
+                    <script src="js/bootstrap.min.js"></script>
+                    <script src="js/owl.carousel.min.js"></script>
+                    <script src="js/jquery.waypoints.min.js"></script>
+                    <script src="js/jquery.stellar.min.js"></script>
+
+
+                    <script src="js/main.js"></script>
+</body>
+
+</html>

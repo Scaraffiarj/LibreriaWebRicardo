@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>LibreriaSistem &mdash; </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <!-- Theme Style -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+
+  <header role="banner">
+    <div class="top-bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-9 social">
+            <a href="#"><span class="fa fa-twitter"></span></a>
+            <a href="#"><span class="fa fa-facebook"></span></a>
+            <a href="#"><span class="fa fa-instagram"></span></a>
+            <a href="#"><span class="fa fa-youtube-play"></span></a>
+            <a href="#"><span class="fa fa-vimeo"></span></a>
+            <a href="#"><span class="fa fa-snapchat"></span></a>
+          </div>
+          <div class="col-3 search-top">
+            <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+            <form action="#" class="search-top-form">
+              <span class="icon fa fa-search"></span>
+              <input type="text" id="s" placeholder="Type keyword to search...">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container logo-wrap">
+      <div class="row pt-5">
+        <div class="col-12 text-center">
+          <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button"
+            aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+          <h1 class="site-logo"><a href="index.html">SISTEMA DE GESTION LIBRERIA</a></h1>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md  navbar-light bg-light">
+      <div class="container">
+
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="autor.html" id="dropdown04" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Cargar nuevos autores</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+
+                <form style="width: 300px; 
+                border-radius: 300px;
+                padding: 10px;
+                margin: 0 auto;
+
+                  " action="/autor/agregarAutor" method="POST" enctype="multipart/form-data">
+                  <br />
+                  <br />
+                  <label>Nombre Autor</label>
+                  <input type="text" name="nombre"></input>
+                  <br />
+                  <br />
+                  <br /><button type="submit" class="btn btn-primary">Guardar Autor</button>
+                </form>
+
+
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="autor.html" id="dropdown04" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Modificar Autor</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+                <form style="width: 300px; 
+                border-radius: 300px;
+                padding: 10px;
+                margin: 0 auto;
+
+                  "  action="/autor/modificarAutor" method="POST" enctype="multipart/form-data">
+                  <br />
+                  <br />
+                  <label>Seleccione el Autor a modificar</label>
+                  <select class="form-control" name="idAutor">
+                    <option selected disabled>...</option>
+                    <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
+                  </select>
+                  <label>Ingrese el nombre correcto</label>
+                  <input type="text" name="nombre"></input>
+                  <br />
+                  <br/>
+                  <button type="submit" class="btn btn-primary">Modificar Autor</button>
+                </form>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="autor.html" id="dropdown04" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Eliminar autor</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+
+                <form style="width: 300px;
+                border-radius: 300px;
+                padding: 10px;
+                margin: 0 auto;
+
+                  "  action="/autor/eliminarAutor" method="POST" enctype="multipart/form-data">
+                  <br />
+                  <br />
+                  <label>Nombre del Autor</label>
+                  <select class="form-control" name="idAutor">
+                    <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
+                  </select>
+                  <br /><button type="submit" class="btn btn-primary">Eliminar Autor</button>
+                </form>
+
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="autor.html" id="dropdown04" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Ver todos los autores</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+
+            <table style border=1px solid black; text-align="center" bordercolor="green" cellspacing="1">
+              <!--<table >
+              <style type="text/css">
+                table,th,td {
+                  border: 1px;
+                  border-collapse: collapse;
+
+                }
+                th,td{
+                  padding: 10px;
+                 }
+                 th{
+                   text-align: left;
+                   background-color: darkblue;
+                 }
+                 </style>-->
+                  <caption>Lista general de autores</caption>
+
+                  <thead>
+                    <tr>
+                      <th>NOMBRE AUTOR</th>
+                      <th>ID AUTOR</th>
+                      <th></th>
+                    </tr>
+                    <thead>
+                    <tbody>
+                      <tr th:each="autor: ${autores}">
+                        <td th:text="${autor.nombre}"></td>
+                        <td th:text="${autor.id}"></td>
+                      </tr>
+                    </tbody>
+                </table>
+
+              </div>
+
+        </div>
+
+        </li>
+
+        </ul>
+
+      </div>
+      </div> </nav>
+  </header>
+  <!-- END header -->
+  <section class="site-section pt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="owl-carousel owl-theme home-slider">
+            <div>
+              <a href="autor.html" class="a-block d-flex align-items-center height-lg"
+                style="background-image: url('img/julio.jpg'); ">
+                <div class="text half-to-full">
+                  <div class="post-meta">
+
+                  </div>
+                  <h3></h3>
+
+                </div>
+              </a>
+            </div>
+            <div>
+              <a href="autor.html" class="a-block d-flex align-items-center height-lg"
+                style="background-image: url('img/sabato.jpg'); ">
+                <div class="text half-to-full">
+                  <div class="post-meta">
+
+                  </div>
+                  <h3></h3>
+
+                </div>
+              </a>
+            </div>
+            <div>
+              <a href="autor.html" class="a-block d-flex align-items-center height-lg"
+                style="background-image: url('img/llosa.jpg'); ">
+                <div class="text half-to-full">
+                  <div class="post-meta">
+
+                  </div>
+                  <h3></h3>
+
+                </div>
+              </a>
+            </div>
+          </div>
+
+
+          <script src="js/jquery-3.2.1.min.js"></script>
+          <script src="js/jquery-migrate-3.0.0.js"></script>
+          <script src="js/popper.min.js"></script>
+          <script src="js/bootstrap.min.js"></script>
+          <script src="js/owl.carousel.min.js"></script>
+          <script src="js/jquery.waypoints.min.js"></script>
+          <script src="js/jquery.stellar.min.js"></script>
+
+
+          <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>LibreriaSystem</title>
+	<link rel="stylesheet" href="">
+</head>
+
+<h1>SISTEMA DE GESTION DE TU LIBRERIA</h1>
+<div align ="center">
+<img style="width:350px; height:300px;" src="Proyectolibreria.jpg" alt="Tu libreria" title="Proyectolibreria">
+</div>
+<hr/>
+<body>
+ <h2 class="display-4" th:text="${titulo}"> </h2>
+                 <p th:text="${descripcion}"></p>
+    <button onclick="location.href='/'">Volver a la Pagina de Inicio</button> 
+    <input type="button" onclick="history.back()"name="volver atras" value="Volver Portal Anterior"></input>   
+</body>
+</html>
+    
+       
